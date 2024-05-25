@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid" style="padding: 10px 50px; background-color: #007bff; color: #fff; ">
+        <h1 style="font-size: 56px; font-weight: bold;">{{ 'title.homepage'|trans|raw }}</h1>
+
+        {% from 'default/_language_selector.html.twig' import render_language_selector %}
+        {{ render_language_selector(true) }}
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 text-center" style="border: none; background-color: #f8f9fa;">
+                    <div class="card-body">
+                        <i class="fas fa-blog fa-5x mb-3" style="color: #007bff;"></i>
+                        <h5 class="card-title">Parcourir le Blog</h5>
+                        <p class="card-text">Découvrez nos derniers articles, conseils et astuces.</p>
+                        <a href="{{ path('blog_index') }}" class="btn btn-primary">Découvrir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 text-center" style="border: none; background-color: #f8f9fa;">
+                    <div class="card-body">
+                        <i class="fas fa-cogs fa-5x mb-3" style="color: #007bff;"></i>
+                        <h5 class="card-title">Espace Administration</h5>
+                        <p class="card-text">Accédez à l'espace d'administration pour gérer le contenu du site.</p>
+                        <a href="{{ path('admin_index') }}" class="btn btn-primary btn-primary">Accéder</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

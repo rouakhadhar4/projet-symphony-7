@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block importmap %}
+    {# Chargez à la fois les points d'entrée app.js et admin.js #}
+    {{ importmap(['app', 'admin']) }}
+{% endblock %}
+
+{% block header_navigation_links %}
+    <li class="nav-item{{ _route in ['admin_index', 'admin_post_index'] ? ' active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_post_index') }}">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'menu.post_list'|trans }}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('blog_index') }}">
+            <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.back_to_blog'|trans }}
+        </a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {# Ajouter une carte de l'Angleterre avec une couleur de fond différente #}
+    <div id="map" style="height: 400px; background-color: #f8f9fa;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# Script pour initialiser la carte de localisation #}
+    <script>
+        // Initialise la carte de localisation de l'Angleterre
+        function initMap() {
+            // Coordonnées du centre de la carte (Angleterre)
+            var englandLatLng = {lat: 52.3555, lng: -1.1743};
+
+            // Options de la carte
+            var mapOptions = {
+                center: englandLatLng,
+                zoom: 6,  // Ajustez le zoom selon vos besoins
+                mapTypeControl: true, // Afficher les options de type de carte (Plan, Satellite, Terrain)
+                fullscreenControl: true, // Activer le bouton plein écran
+                streetViewControl: true // Activer le bouton Street View
+            };
+
+            // Crée une nouvelle carte Google Maps avec les options
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // Ajoute un marqueur à la position spécifiée
+            var marker = new google.maps.Marker({
+                position: englandLatLng,
+                map: map,
+                title: 'Angleterre'
+            });
+        }
+    </script>
+
+    {# Chargement de l'API Google Maps avec votre clé API #}
+    <script async defer
+         src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&callback=initMap"">
+    </script>
+{% endblock %}

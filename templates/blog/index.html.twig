@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'blog_index' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .welcome-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section h2 {
+            font-size: 24px;
+            color: #008000; /* Vert pour le titre */
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            font-size: 18px;
+            color: #00008B; /* Bleu foncé pour le paragraphe */
+            margin-bottom: 15px;
+        }
+
+        .welcome-section ul {
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        .welcome-section ul li {
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+
+        .welcome-section ul li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .welcome-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Augmenter la taille de la div des projets */
+        .projects-section {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .projects-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .projects-section ul {
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        .projects-section ul li {
+            list-style-type: none;
+            margin-bottom: 10px;
+        }
+
+        .projects-section ul li a {
+            color: #555;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .projects-section ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="welcome-section projects-section">
+                <p style="color: #008000; font-size: 20px;">Here are some of the Symfony projects developed by Roua Khadhar:</p>
+                <ul class="list-unstyled">
+                    <li><a href="https://github.com/DimitriKft/myp_symfony" style="color: #007bff; font-size: 18px; text-decoration: none;">Projet Git 1:Crud project</a></li>
+                    <li><a href="https://t-richard.github.io/formation-sf/02-getting-started/" style="color: #007bff; font-size: 18px; text-decoration: none;">Projet Git 2:Getting Started with Symfony 5</a></li>
+                    <li><a href="https://github.com/NouvelleTechno/e-commerce-Symfony-6" style="color: #007bff; font-size: 18px; text-decoration: none;">Projet Git 3:projet ecommerce</a></li>
+                    <!-- Ajoutez autant de liens que nécessaire pour vos projets Git -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    {% for post in paginator.results %}
+        {{ include('blog/_post.html.twig') }}
+        
+    {% else %}
+       
+    {% endfor %}
+
+    {% if paginator.hasToPaginate %}
+        
+    {% endif %}
+
+   
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+   
+    
+
+    {{ show_source_code(_self) }}
+    {{ include('blog/_rss.html.twig') }}
+{% endblock %}
+
+{% block footer %}
+    
+
+  <footer class="footer navbar-dark bg-dark text-white">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-unstyled" style="color: #007bff; font-family: Arial, sans-serif;">
+                <li style="font-size: 18px; margin-bottom: 10px;">
+                    <i class="fas fa-phone-alt"></i> Phone Number: 53380501
+                </li>
+                <li style="font-size: 18px; margin-bottom: 10px;">
+                    <i class="fas fa-envelope"></i> Email: khadharroua4@gmail.com
+                </li>
+                <li style="font-size: 18px; margin-bottom: 10px;">
+                    <i class="fas fa-map-marker-alt"></i> Address: Nabeul bir chalouf 8000
+                </li>
+            </ul>
+        </div>
+ 
+
+
+
+               <div class="col-md-6">
+    <div id="map-footer" style="height: 200px;"></div>
+
+    {# Script pour initialiser la carte de localisation #}
+    <script>
+        // Initialise la carte de localisation pour le pied de page
+        function initMapFooter() {
+            // Coordonnées du centre de la carte (Hendersonville, Amérique)
+            var myLatLng = {lat: 36.3048, lng: -86.6199}; // Coordonnées pour Hendersonville, Tennessee, USA
+
+            // Options de la carte
+            var mapOptions = {
+                center: myLatLng,
+                zoom: 10,  // Zoom sur la région de Hendersonville
+                mapTypeControl: false, // Désactivez les options de type de carte
+                fullscreenControl: false, // Désactivez le bouton plein écran
+                streetViewControl: false // Désactivez le bouton Street View
+            };
+
+            // Crée une nouvelle carte Google Maps avec les options pour le pied de page
+            var mapFooter = new google.maps.Map(document.getElementById('map-footer'), mapOptions);
+
+            // Ajoute un marqueur à la position spécifiée
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: mapFooter,
+                title: 'Hendersonville' // Mettez le nom de votre lieu ici
+            });
+        }
+    </script>
+
+    {# Chargement de l'API Google Maps avec votre clé API pour le pied de page #}
+    <script async defer
+               src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxWlNmiTwlyCUXt5zCSL5jv7ppKTOKFvk&callback=initMapFooter">
+    </script>
+</div>
+
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+

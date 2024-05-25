@@ -1,0 +1,41 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_post_new' %}
+
+{% block main %}
+    <div class="container"> <!-- Encadrez le formulaire dans un conteneur -->
+        <h1>{{ 'title.post_new'|trans }}</h1>
+
+        {{ form_start(form) }}
+            <div class="form-group"> <!-- Ajoutez une classe pour le groupe de formulaire -->
+                {{ form_row(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }} <!-- Ajoutez des classes pour le champ titre -->
+            </div>
+            <div class="form-group">
+                {{ form_row(form.summary, {'attr': {'class': 'form-control', 'placeholder': 'Summary'}}) }} <!-- Ajoutez des classes pour le champ résumé -->
+            </div>
+            <div class="form-group">
+                {{ form_row(form.content, {'attr': {'class': 'form-control', 'rows': '5', 'placeholder': 'Content'}}) }} <!-- Ajoutez des classes pour le champ contenu -->
+            </div>
+            <div class="form-group">
+                {{ form_row(form.publishedAt, {'attr': {'class': 'form-control'}}) }} <!-- Ajoutez des classes pour le champ date de publication -->
+            </div>
+            <div class="form-group">
+                {{ form_row(form.tags, {'attr': {'class': 'form-control'}}) }} <!-- Ajoutez des classes pour le champ tags -->
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save" aria-hidden="true"></i> {{ 'label.create_post'|trans }}
+            </button>
+            {{ form_widget(form.saveAndCreateNew, {label: 'label.save_and_create_new', attr: {class: 'btn btn-primary'}}) }}
+            <a href="{{ path('admin_post_index') }}" class="btn btn-link">
+                <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
+            </a>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}

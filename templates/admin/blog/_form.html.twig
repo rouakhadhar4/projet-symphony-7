@@ -1,0 +1,31 @@
+{#
+    By default, forms enable client-side validation. This means that you can't
+    test the server-side validation errors from the browser. To temporarily
+    disable this validation, add the 'novalidate' attribute:
+
+    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+#}
+
+{% if show_confirmation|default(false) %}
+    {% set attr = {'data-confirmation': 'true'} %}
+    {{ include('blog/_delete_post_confirmation.html.twig') }}
+{% if include_back_to_home_link|default(false) %}
+    <a href="{{ path('admin_post_index') }}" class="btn btn-link">
+        <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
+    </a>
+{% endif %}
+
+{{ form_start(form, {attr: attr|default({})}) }}
+    <div class="form-group"> <!-- Ajouter une classe pour le groupe de formulaire -->
+        {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Title'}}) }} <!-- Ajouter des classes pour le champ titre -->
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': '5', 'placeholder': 'Content'}}) }} <!-- Ajouter des classes pour le champ contenu -->
+    </div>
+    <!-- Vous pouvez ajouter d'autres champs ici avec des classes personnalisées -->
+    
+    <button type="submit" class="{{ button_css|default("btn btn-primary") }}">
+        <i class="fa fa-save" aria-hidden="true"></i> {{ button_label|default('label.create_post'|trans) }}
+    </button>
+{{ form_end(form) }}
+

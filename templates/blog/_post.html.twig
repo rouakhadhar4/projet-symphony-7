@@ -1,0 +1,16 @@
+
+<article class="post">
+    <h2 class="post-title">
+        <a href="{{ path('blog_post', {slug: post.slug}) }}" class="post-link">{{ post.title }}</a>
+    </h2>
+
+    <p class="post-metadata">
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
+        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
+    </p>
+
+    <div class="post-content">
+        <p class="post-summary">{{ post.summary }}</p>
+        {{ include('blog/_post_tags.html.twig') }}
+    </div>
+</article>
